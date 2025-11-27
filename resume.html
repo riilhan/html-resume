@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端开发工程师简历 - 李晗萌</title>
+    <style>
+        :root {
+            --primary-color: #5d87e8;
+            --bg-color: #f5f7fa;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-sub: #666666;
+            --tag-bg: #eef2ff;
+            --tag-text: #5d87e8;
+            --border-color: #e4e7ed;
+            --sidebar-width: 240px;
+            --sidebar-collapsed-width: 60px;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        aside {
+            width: var(--sidebar-width);
+            background-color: #fff;
+            padding: 30px 20px;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+            position: fixed;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            box-sizing: border-box;
+
+            transition: width 0.3s ease, padding 0.3s ease;
+            overflow: hidden;
+            white-space: nowrap; 
+        }
+
+        aside.is-collapsed {
+            width: var(--sidebar-collapsed-width);
+            padding: 30px 10px; 
+        }
+
+        aside h3 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--text-main);
+            font-size: 24px;
+            transition: opacity 0.2s, transform 0.3s;
+            opacity: 1;
+        }
+
+        aside.is-collapsed h3 {
+            opacity: 0;
+            transform: translateX(-20px);
+            pointer-events: none;
+            position: absolute;
+        }
+
+        .toggle-sidebar-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--tag-bg);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+            transition: transform 0.3s, right 0.3s;
+            z-index: 20;
+        }
+
+        .toggle-sidebar-btn:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        aside.is-collapsed .toggle-sidebar-btn {
+            right: 18px; 
+            transform: rotate(180deg); 
+        }
+
+        aside ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 60px;
+        }
+
+        aside li {
+            padding: 15px 15px; 
+            margin-bottom: 10px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            color: var(--text-sub);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        aside.is-collapsed li {
+            justify-content: center;
+            padding: 15px 0;
+        }
+
+        aside li:hover, aside li.active {
+            background-color: var(--tag-bg);
+            color: var(--primary-color);
+        }
+
+        aside a {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            width: 100%;
+            align-items: center;
+        }
+
+        aside li span.icon {
+            font-size: 1.2em;
+            min-width: 30px;
+            text-align: center;
+            display: inline-block;
+        }
+
+        aside li span.text {
+            margin-left: 10px;
+            transition: opacity 0.2s;
+            opacity: 1;
+        }
+
+        aside.is-collapsed li span.text {
+            opacity: 0;
+            display: none;
+        }
+
+        article {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 40px 60px;
+            max-width: 900px;
+            transition: margin-left 0.3s ease;
+        }
+
+        article.is-collapsed {
+            margin-left: var(--sidebar-collapsed-width);
+        }
+
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px 0 rgba(0,0,0,0.05);
+        }
+        .header-info h1 { 
+            margin: 0 0 10px 0; 
+            font-size: 28px; 
+        }
+        .header-info p { 
+            margin: 5px 0; 
+            color: var(--text-sub); 
+            font-size: 14px; 
+            line-height: 1.6; 
+        }
+        .header-photo { 
+            width: 100px; 
+            height: 120px; 
+            background-color: #eee; 
+            border-radius: 4px; 
+            overflow: hidden; 
+        }
+        .header-photo img {
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
+        .section-card { 
+            background: #fff; 
+            padding: 25px 30px; 
+            margin-bottom: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 2px 12px 0 rgba(0,0,0,0.05); 
+        }
+        .little-title { 
+            color: var(--primary-color); 
+            font-weight: bold; 
+            font-size: 20px; 
+            margin-top: 0; 
+            margin-bottom: 20px; 
+            display: flex; 
+            align-items: center; 
+            border-bottom: 1px solid var(--border-color); 
+            padding-bottom: 10px; 
+        }
+        .little-title span { 
+            margin-right: 8px; 
+        }
+        .intro-text { 
+            color: var(--text-sub); 
+            line-height: 1.6; 
+            text-align: justify; 
+        }
+        .education-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+        }
+        .education-table td { 
+            padding: 10px 0; 
+            color: var(--text-main); 
+            border-bottom: 1px dashed var(--border-color); 
+        }
+        .education-table tr:last-child td { 
+            border-bottom: none; 
+        }
+        .education-table td:last-child { 
+            text-align: right; 
+            color: var(--text-sub); 
+            font-size: 0.9em; 
+        }
+        .skill-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; 
+        }
+        .skill-item h4 { 
+            background-color: var(--tag-bg); 
+            color: var(--tag-text); 
+            padding: 8px 12px; 
+            border-radius: 6px; 
+            margin: 0 0 10px 0; 
+            display: inline-block; 
+            font-size: 15px; 
+        }
+        .skill-item ul { 
+            margin: 0; 
+            padding-left: 20px; 
+            color: var(--text-sub); 
+            font-size: 14px; 
+            line-height: 1.6; 
+        }
+        .project-item { 
+            margin-bottom: 25px; 
+            padding-bottom: 15px; 
+            border-bottom: 1px solid #f0f0f0; 
+        }
+        .project-item:last-child { 
+            border-bottom: none; 
+        }
+        .project-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; margin-bottom: 8px; 
+        }
+        .project-title { 
+            font-size: 18px; 
+            font-weight: bold; 
+            color: #333; 
+        }
+        .project-role { 
+            font-size: 14px; 
+            color: #888; 
+            background: #f4f4f5; 
+            padding: 2px 8px; 
+            border-radius: 4px; 
+        }
+        .tech-stack { 
+            font-size: 14px; 
+            color: var(--primary-color); 
+            font-weight: 500; 
+            margin-bottom: 10px; 
+        }
+        .project-desc-short { 
+            font-size: 14px; 
+            color: var(--text-sub); 
+            line-height: 1.6; 
+            margin-bottom: 10px; 
+        }
+        .project-details { 
+            display: none; 
+            background-color: #fafafa; 
+            padding: 15px; 
+            border-radius: 6px; 
+            margin-top: 10px; 
+            font-size: 14px; 
+            color: #555; 
+            line-height: 1.8; 
+        }
+        .project-details ul { 
+            margin: 0; 
+            padding-left: 20px; 
+        }
+        .toggle-btn { 
+            background: none; 
+            border: none; 
+            color: var(--primary-color); 
+            cursor: pointer; 
+            padding: 0; 
+            font-size: 14px; 
+            display: flex; 
+            align-items: center; 
+        }
+        .toggle-btn:hover { 
+            text-decoration: underline; 
+        }
+        .toggle-btn::after { 
+            content: ' ▼'; 
+            font-size: 0.8em; 
+            margin-left: 4px; 
+        }
+        .toggle-btn.active::after { 
+            content: ' ▲'; 
+        }
+        .award-list, .school-list { 
+            list-style: none; 
+            padding: 0; }
+        .award-list li { 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 8px 0; 
+            border-bottom: 1px dashed var(--border-color); 
+            font-size: 14px; 
+        }
+        .school-item h4 { 
+            margin: 0 0 5px 0; 
+            font-size: 16px; 
+        }
+        .school-item p { 
+            font-size: 14px; 
+            color: var(--text-sub); 
+            line-height: 1.6; 
+            margin-top: 5px; 
+        }
+
+        @media (max-width: 768px) {
+            aside { display: none; }
+            article { margin-left: 0; padding: 20px; }
+            .skill-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+    <aside id="sidebar">
+        <div class="toggle-sidebar-btn" onclick="toggleSidebar()" title="收起/展开侧边栏">
+            ◀
+        </div>
+
+        <h3>个人简历</h3>
+        <ul>
+            <li><a href="#info"><span class="icon">📄</span> <span class="text">个人简介</span></a></li>
+            <li><a href="#education"><span class="icon">🎓</span> <span class="text">教育背景</span></a></li>
+            <li><a href="#skills"><span class="icon">🔧</span> <span class="text">个人技能</span></a></li>
+            <li><a href="#projects"><span class="icon">💼</span> <span class="text">项目经历</span></a></li>
+            <li><a href="#awards"><span class="icon">🏆</span> <span class="text">奖项证书</span></a></li>
+            <li><a href="#school"><span class="icon">🏫</span> <span class="text">校园经历</span></a></li>
+        </ul>
+    </aside>
+
+    <article id="mainContent">
+        <div class="header-section" id="info">
+            <div class="header-info">
+                <h1>李晗萌 <span style="font-size:16px; font-weight:normal; color:#666;">（女 | 2005）</span></h1>
+                <p><b>求职意向：前端开发工程师</b></p>
+                <p>💬 电话：17829005038</p>
+                <p>📮 邮箱：2335468074@qq.com</p>
+                <p>🔗 个人主页：github.com/riilhan</p>
+            </div>
+            <div class="header-photo">
+                <img src="https://via.placeholder.com/100x120/5d87e8/ffffff?text=Photo" alt="个人照片">
+            </div>
+        </div>
+        <div class="section-card">
+            <p class="little-title"><span>📄</span>个人简介</p>
+            <div class="intro-text">
+                我性格严谨细致，对技术充满钻研热情，在前端开发与人工智能领域具备扎实的实践能力。熟练掌握 Vue 3 + TypeScript 前端技术栈与 PyTorch 深度学习框架，能独立完成从项目架构设计到全流程开发的工作。注重技术落地与性能优化，同时具备良好的团队协作与文档编写能力，能在技术团队中高效输出价值。期待在互联网技术领域持续深耕，以技术创新解决实际问题。
+            </div>
+        </div>
+
+        <div class="section-card" id="education">
+            <p class="little-title"><span>🎓</span>教育背景</p>
+            <table class="education-table">
+                <tr>
+                    <td><b>重庆邮电大学</b></td>
+                    <td>智能科学与技术 | 本科</td>
+                    <td>2023.08 - 2027.11</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section-card" id="skills">
+            <p class="little-title"><span>🔧</span>个人技能</p>
+            <div class="skill-grid">
+                <div class="skill-item">
+                    <h4>编程语言</h4>
+                    <ul>
+                        <li>精通 Python、C 语言、TypeScript</li>
+                        <li>熟练运用 Python（PyTorch、NumPy）</li>
+                        <li>TypeScript（Vue 3 生态）适配 AI 与前端开发场景</li>
+                    </ul>
+                </div>
+                <div class="skill-item">
+                    <h4>前端技术</h4>
+                    <ul>
+                        <li>熟练使用 Vue 3、Element Plus、Pinia/Vuex</li>
+                        <li>掌握 Docker、Nginx 实现前端部署与性能优化</li>
+                        <li>构建模块化应用，注重组件复用</li>
+                    </ul>
+                </div>
+                <div class="skill-item">
+                    <h4>人工智能</h4>
+                    <ul>
+                        <li>理解机器学习、计算机视觉基础</li>
+                        <li>具备 U-Net 模型实战经验</li>
+                        <li>独立完成数据预处理至模型评估全流程</li>
+                    </ul>
+                </div>
+                <div class="skill-item">
+                    <h4>工程能力</h4>
+                    <ul>
+                        <li>注重代码可维护性与类型安全</li>
+                        <li>擅长编写技术 / 接口文档</li>
+                        <li>保障团队协作效率，Git 协同开发</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-card" id="projects">
+            <p class="little-title"><span>💼</span>项目经历</p>
+
+            <div class="project-item">
+                <div class="project-header">
+                    <span class="project-title">智能票务系统前端开发</span>
+                    <span class="project-role">实验室项目</span>
+                </div>
+                <div class="tech-stack">技术栈：Vue 3 + TypeScript + Element Plus + Docker</div>
+                <div class="project-desc-short">
+                    作为实验室智慧交通方向研究项目的核心模块，独立负责“智能票务管理系统” 前端全流程开发，聚焦票务管理、查询与交互体验的智能化升级。
+                </div>
+                <button class="toggle-btn" onclick="toggleDetails(this)">展开详细经历</button>
+                <div class="project-details">
+                    <ul>
+                        <li>采用 Vue 3 + TypeScript 构建模块化前端架构，保障代码可维护性与类型安全性；</li>
+                        <li>设计并实现侧边栏权限管理、消息记录、多语言切换等核心功能；</li>
+                        <li>通过 Pinia/Vuex 实现全局状态管理，结合 Element Plus 组件库提升交互流畅度；</li>
+                        <li>编写 Dockerfile 与 Nginx 配置完成前端镜像化部署，部署效率提升；</li>
+                        <li>输出详细 README 与接口文档，为后续团队维护提供技术支持。</li>
+                        <li><b>成果：</b>系统在实验室内部上线后，前端界面交互流畅度显著提升，获导师与组员高度认可。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-header">
+                    <span class="project-title">心脏 MRI 图像分割</span>
+                    <span class="project-role">课程项目</span>
+                </div>
+                <div class="tech-stack">技术栈：Python + PyTorch + NumPy + nibabel</div>
+                <div class="project-desc-short">
+                    独立负责基于 U-Net 模型的心脏 MRI 图像分割算法实现与全流程训练，以左心室、右心室与心肌区域为研究对象。
+                </div>
+                <button class="toggle-btn" onclick="toggleDetails(this)">展开详细经历</button>
+                <div class="project-details">
+                    <ul>
+                        <li>搭建 U-Net 网络架构，实现从模型搭建到端到端训练的完整流程；</li>
+                        <li>编写图像裁剪、归一化、padding 等预处理模块，提升模型输入质量；</li>
+                        <li>采用 Dice 系数、Jaccard 系数、准确率等指标对模型效果量化评估；</li>
+                        <li>优化学习率、损失函数与批次大小等超参数，增强模型收敛稳定性。</li>
+                        <li><b>成果：</b>模型在验证集上取得平均 Dice 系数 0.87 的优异成绩，较基准模型显著提升，课程评分获优秀。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-card" id="awards">
+            <p class="little-title"><span>🏆</span>奖项及证书</p>
+            <ul class="award-list">
+                <li>
+                    <span>2025年第十五届 MathorCup 数学应用挑战赛 — 川渝赛区二等奖</span>
+                    <span>2025.06</span>
+                </li>
+                <li>
+                    <span>重庆邮电大学第十八届 ACM 程序设计竞赛 (团体赛) 优秀奖</span>
+                    <span>2024.12</span>
+                </li>
+                <li>
+                    <span>大学英语六级 (CET-6) / 四级 (CET-4)</span>
+                    <span>通过</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section-card" id="school">
+            <p class="little-title"><span>🏫</span>校园经历</p>
+            <div class="school-item">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h4>重庆邮电大学勤工助学中心负责人 | “阳光义教”项目组织者</h4>
+                    <span style="font-size:14px; color:#999;">2023.09 - 2025.07</span>
+                </div>
+                <p>
+                    在校勤工助学中心任负责人期间，组织策划校级公益活动“阳光义教”，负责联系义教合作学校，确定教学需求与授课安排。活动共吸引100+名学生志愿者参与，覆盖4所中小学、300余名学生，获得校团委与合作学校一致好评。
+                </p>
+            </div>
+        </div>
+
+    </article>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            
+            sidebar.classList.toggle('is-collapsed');
+            mainContent.classList.toggle('is-collapsed');
+        }
+
+        function toggleDetails(button) {
+            const detailsDiv = button.nextElementSibling;
+            if (detailsDiv.style.display === "block") {
+                detailsDiv.style.display = "none";
+                button.innerHTML = "展开详细经历";
+                button.classList.remove("active");
+            } else {
+                detailsDiv.style.display = "block";
+                button.innerHTML = "收起详细经历";
+                button.classList.add("active");
+            }
+        }
+
+        const navLinks = document.querySelectorAll('aside li');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
